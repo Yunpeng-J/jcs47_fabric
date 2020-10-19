@@ -11,7 +11,7 @@ import (
 
 	"github.com/hyperledger/fabric/common/policies"
 	cb "github.com/hyperledger/fabric/protos/common"
-	"github.com/pkg/errors"
+	// "github.com/pkg/errors"
 )
 
 // SigFilterSupport provides the resources required for the signature filter
@@ -38,20 +38,24 @@ func NewSigFilter(policyName string, support SigFilterSupport) *SigFilter {
 
 // Apply applies the policy given, resulting in Reject or Forward, never Accept
 func (sf *SigFilter) Apply(message *cb.Envelope) error {
-	signedData, err := message.AsSignedData()
-
+	_, err := message.AsSignedData()
 	if err != nil {
 		return fmt.Errorf("could not convert message to signedData: %s", err)
 	}
+	// signedData, err := message.AsSignedData()
 
-	policy, ok := sf.support.PolicyManager().GetPolicy(sf.policyName)
-	if !ok {
-		return fmt.Errorf("could not find policy %s", sf.policyName)
-	}
+	// if err != nil {
+	// 	return fmt.Errorf("could not convert message to signedData: %s", err)
+	// }
 
-	err = policy.Evaluate(signedData)
-	if err != nil {
-		return errors.Wrap(errors.WithStack(ErrPermissionDenied), err.Error())
-	}
+	// policy, ok := sf.support.PolicyManager().GetPolicy(sf.policyName)
+	// if !ok {
+	// 	return fmt.Errorf("could not find policy %s", sf.policyName)
+	// }
+
+	// err = policy.Evaluate(signedData)
+	// if err != nil {
+	// 	return errors.Wrap(errors.WithStack(ErrPermissionDenied), err.Error())
+	// }
 	return nil
 }

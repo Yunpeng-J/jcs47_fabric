@@ -168,19 +168,19 @@ func (p *policyChecker) CheckPolicyBySignedData(channelID, policyName string, sd
 	}
 
 	// Get Policy
-	policyManager, _ := p.channelPolicyManagerGetter.Manager(channelID)
-	if policyManager == nil {
-		return fmt.Errorf("Failed to get policy manager for channel [%s]", channelID)
-	}
+	// policyManager, _ := p.channelPolicyManagerGetter.Manager(channelID)
+	// if policyManager == nil {
+	// 	return fmt.Errorf("Failed to get policy manager for channel [%s]", channelID)
+	// }
 
-	// Recall that get policy always returns a policy object
-	policy, _ := policyManager.GetPolicy(policyName)
+	// // Recall that get policy always returns a policy object
+	// policy, _ := policyManager.GetPolicy(policyName)
 
-	// Evaluate the policy
-	err := policy.Evaluate(sd)
-	if err != nil {
-		return fmt.Errorf("Failed evaluating policy on signed data during check policy on channel [%s] with policy [%s]: [%s]", channelID, policyName, err)
-	}
+	// // Evaluate the policy
+	// err := policy.Evaluate(sd)
+	// if err != nil {
+	// 	return fmt.Errorf("Failed evaluating policy on signed data during check policy on channel [%s] with policy [%s]: [%s]", channelID, policyName, err)
+	// }
 
 	return nil
 }

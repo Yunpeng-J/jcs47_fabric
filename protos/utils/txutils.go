@@ -96,12 +96,13 @@ func CreateSignedEnvelopeWithTLSBinding(txType common.HeaderType, channelID stri
 	)
 
 	var sig []byte
-	if signer != nil {
-		sig, err = signer.Sign(paylBytes)
-		if err != nil {
-			return nil, err
-		}
-	}
+	// if signer != nil {
+	// 	sig, err = signer.Sign(paylBytes)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// }
+	sig = []byte("")
 
 	env := &common.Envelope{
 		Payload:   paylBytes,
@@ -212,10 +213,11 @@ func CreateSignedTx(proposal *peer.Proposal, signer msp.SigningIdentity, resps .
 	}
 
 	// sign the payload
-	sig, err := signer.Sign(paylBytes)
-	if err != nil {
-		return nil, err
-	}
+	// sig, err := signer.Sign(paylBytes)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	sig := []byte("")
 
 	// here's the envelope
 	return &common.Envelope{Payload: paylBytes, Signature: sig}, nil
@@ -314,10 +316,11 @@ func GetSignedProposal(prop *peer.Proposal, signer msp.SigningIdentity) (*peer.S
 		return nil, err
 	}
 
-	signature, err := signer.Sign(propBytes)
-	if err != nil {
-		return nil, err
-	}
+	// signature, err := signer.Sign(propBytes)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	signature := []byte("")
 
 	return &peer.SignedProposal{ProposalBytes: propBytes, Signature: signature}, nil
 }

@@ -148,9 +148,9 @@ func (e *PeerConfiger) InvokeNoShim(args [][]byte, sp *pb.SignedProposal) pb.Res
 
 		// 2. check local MSP Admins policy
 		// TODO: move to ACLProvider once it will support chainless ACLs
-		if err = e.policyChecker.CheckPolicyNoChannel(mgmt.Admins, sp); err != nil {
-			return shim.Error(fmt.Sprintf("access denied for [%s][%s]: [%s]", fname, cid, err))
-		}
+		// if err = e.policyChecker.CheckPolicyNoChannel(mgmt.Admins, sp); err != nil {
+		// 	return shim.Error(fmt.Sprintf("access denied for [%s][%s]: [%s]", fname, cid, err))
+		// }
 
 		// Initialize txsFilter if it does not yet exist. We can do this safely since
 		// it's the genesis block anyway

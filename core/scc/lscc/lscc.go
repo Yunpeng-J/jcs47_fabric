@@ -687,14 +687,14 @@ func (lscc *LifeCycleSysCC) executeDeploy(
 		return nil, err
 	}
 	// get the signed instantiation proposal
-	signedProp, err := stub.GetSignedProposal()
-	if err != nil {
-		return nil, err
-	}
-	err = lscc.Support.CheckInstantiationPolicy(signedProp, chainname, cdfs.InstantiationPolicy)
-	if err != nil {
-		return nil, err
-	}
+	// signedProp, err := stub.GetSignedProposal()
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// err = lscc.Support.CheckInstantiationPolicy(signedProp, chainname, cdfs.InstantiationPolicy)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	err = lscc.putChaincodeData(stub, cdfs)
 	if err != nil {
@@ -823,9 +823,9 @@ func (lscc *LifeCycleSysCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 		}
 
 		// 2. check local MSP Admins policy
-		if err = lscc.PolicyChecker.CheckPolicyNoChannel(mgmt.Admins, sp); err != nil {
-			return shim.Error(fmt.Sprintf("access denied for [%s]: %s", function, err))
-		}
+		// if err = lscc.PolicyChecker.CheckPolicyNoChannel(mgmt.Admins, sp); err != nil {
+		// 	return shim.Error(fmt.Sprintf("access denied for [%s]: %s", function, err))
+		// }
 
 		depSpec := args[1]
 

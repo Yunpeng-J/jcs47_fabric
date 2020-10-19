@@ -99,20 +99,20 @@ func ValidateProposalMessage(signedProp *pb.SignedProposal) (*pb.Proposal, *comm
 	}
 
 	// validate the signature
-	err = checkSignatureFromCreator(shdr.Creator, signedProp.Signature, signedProp.ProposalBytes, chdr.ChannelId)
-	if err != nil {
-		// log the exact message on the peer but return a generic error message to
-		// avoid malicious users scanning for channels
-		putilsLogger.Warningf("channel [%s]: %s", chdr.ChannelId, err)
-		sId := &msp.SerializedIdentity{}
-		err := proto.Unmarshal(shdr.Creator, sId)
-		if err != nil {
-			// log the error here as well but still only return the generic error
-			err = errors.Wrap(err, "could not deserialize a SerializedIdentity")
-			putilsLogger.Warningf("channel [%s]: %s", chdr.ChannelId, err)
-		}
-		return nil, nil, nil, errors.Errorf("access denied: channel [%s] creator org [%s]", chdr.ChannelId, sId.Mspid)
-	}
+	// err = checkSignatureFromCreator(shdr.Creator, signedProp.Signature, signedProp.ProposalBytes, chdr.ChannelId)
+	// if err != nil {
+	// 	// log the exact message on the peer but return a generic error message to
+	// 	// avoid malicious users scanning for channels
+	// 	putilsLogger.Warningf("channel [%s]: %s", chdr.ChannelId, err)
+	// 	sId := &msp.SerializedIdentity{}
+	// 	err := proto.Unmarshal(shdr.Creator, sId)
+	// 	if err != nil {
+	// 		// log the error here as well but still only return the generic error
+	// 		err = errors.Wrap(err, "could not deserialize a SerializedIdentity")
+	// 		putilsLogger.Warningf("channel [%s]: %s", chdr.ChannelId, err)
+	// 	}
+	// 	return nil, nil, nil, errors.Errorf("access denied: channel [%s] creator org [%s]", chdr.ChannelId, sId.Mspid)
+	// }
 
 	// Verify that the transaction ID has been computed properly.
 	// This check is needed to ensure that the lookup into the ledger
@@ -180,10 +180,10 @@ func checkSignatureFromCreator(creatorBytes []byte, sig []byte, msg []byte, Chai
 	putilsLogger.Debugf("creator is valid")
 
 	// validate the signature
-	err = creator.Verify(msg, sig)
-	if err != nil {
-		return errors.WithMessage(err, "creator's signature over the proposal is not valid")
-	}
+	// err = creator.Verify(msg, sig)
+	// if err != nil {
+	// 	return errors.WithMessage(err, "creator's signature over the proposal is not valid")
+	// }
 
 	putilsLogger.Debugf("exits successfully")
 
@@ -428,12 +428,12 @@ func ValidateTransaction(e *common.Envelope, c channelconfig.ApplicationCapabili
 			return nil, pb.TxValidationCode_BAD_COMMON_HEADER
 		}
 
-		//JCS: validate the signature in the envelope
-		err = checkSignatureFromCreator(shdr.Creator, e.Signature, e.Payload, chdr.ChannelId)
-		if err != nil {
-			putilsLogger.Errorf("checkSignatureFromCreator returns err %s", err)
-			return nil, pb.TxValidationCode_BAD_CREATOR_SIGNATURE
-		}
+		// //JCS: validate the signature in the envelope
+		// err = checkSignatureFromCreator(shdr.Creator, e.Signature, e.Payload, chdr.ChannelId)
+		// if err != nil {
+		// 	putilsLogger.Errorf("checkSignatureFromCreator returns err %s", err)
+		// 	return nil, pb.TxValidationCode_BAD_CREATOR_SIGNATURE
+		// }
 
 		// Verify that the transaction ID has been computed properly.
 		// This check is needed to ensure that the lookup into the ledger
